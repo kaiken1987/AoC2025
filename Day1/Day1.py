@@ -21,14 +21,34 @@ def part1():
 		dial = dial%100
 		if( dial == 0 ):
 			zeros+=1
-		
-		
+				
 	print(f"Password is: {zeros}")
 
 
 def part2():
 	print( "Part 2")
-	#print(f"Total stones: {sum}")
+	dial = 50
+	zeros = 0
+	f.seek(0)
+	for line in f:
+		change = int(line[1:])
+		if (change>100):
+			zeros += int((change / 100))
+			change = change%100
+		if (line[0] == 'R' ): #Right -> add
+			if( dial+change >= 100 ):
+				zeros+=1
+			dial += change
+		elif(line[0] == 'L') :
+			if( dial-change < 0 ) and (dial!=0):
+				zeros+=1
+			dial -= change
+		else:
+			break
+		if( dial == 0 ):
+			zeros+=1
+		dial = dial%100
+	print(f"Password is: {zeros}")
 	
 part1()
 part2()
